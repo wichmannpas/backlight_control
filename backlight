@@ -2,6 +2,10 @@
 import re
 import sys
 
+if len(sys.argv) < 2:
+    print('Please enter an operation, i.e. +5 or -42')
+    sys.exit(1)
+
 min_brightness = 0
 
 with open('/sys/class/backlight/intel_backlight/max_brightness', 'r') as file:
