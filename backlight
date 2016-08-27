@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import re
+import sys
+
+with open('/sys/class/backlight/intel_backlight/brightness', 'r') as file:
+    current_backlight = int(file.read())
+
+pattern = re.compile(r'(\+|-)(\d+)')
+match = pattern.search(sys.argv[1])
+if match:
+    if match.group(1) == '+':
+        current_backlight += int(match.group(2))
+    else:
+        current_backlight -= int(match.group(2))
+
+with open('/sys/class/backlight/intel_backlight/brightness', 'w') as file:
+    file.write(str(current_backlight))
